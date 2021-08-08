@@ -1,11 +1,13 @@
 import pygame
+from venv.Classes.Camera import *
 
 class Hitbox:
-    def __init__(self, x,y,width, height):
+    def __init__(self, x,y,width, height, screen):
         self._x = x
         self._y = y
         self._width = width
         self._height = height
+        self._screen = screen
 
     def checkIntersect(self, hitbox2, depth):
         if(depth < 0):
@@ -46,8 +48,8 @@ class Hitbox:
         self._width = width
         self._height = height
 
-    def display(self, screen):
-        pygame.draw.rect(screen.getScreen(), (255, 0, 0), (self._x, self._y, self._width, self._height), 2)
+    def display(self):
+        pygame.draw.rect(self._screen.getScreen(), (255, 0, 0), (self._x - Camera.scroll[0], self._y - Camera.scroll[1], self._width, self._height), 2)
 
     def getX(self):
         return self._x
@@ -56,8 +58,19 @@ class Hitbox:
     def getWidth(self):
         return self._width
     def getHeight(self):
-        return self._height()
+        return self._height
     def getEdgeR(self):
         return self._x + self._width
     def getEdgeB(self):
         return self._y + self._height
+
+    def __str__(self):
+        return "Hitbox: Pos = (" + str(self._x) + ", " + str(self._y) + ")"
+
+
+class Interactbox(Hitbox):
+    def __init__(self, x, y, width, height, screen):
+        super().__init__(x,y,width, height, screen)
+
+    def display(self):
+        pygame.draw.rect(self._screen.getScreen(), (0, 255, 247), (self._x - Camera.scroll[0], self._y - Camera.scroll[1], self._width, self._height), 2)

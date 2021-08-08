@@ -9,6 +9,7 @@ class Screen:
         self._visible = visible
         self._backgroundList = imageList(r'venv/Backgrounds/')
         self._background = 0
+        self._showFPS = False
 
         self._screen = pygame.display.set_mode((self._width, self._height))
         pygame.display.set_caption(self._caption)
@@ -26,7 +27,6 @@ class Screen:
             self._background = background
             self._screen.fill((0,0,0))
             self._screen.blit(self._backgroundList[self._background],(0,0))
-            
 
     def getScreen(self):
         return self._screen
